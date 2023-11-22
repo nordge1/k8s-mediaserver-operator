@@ -12,7 +12,7 @@ general:
   pgid: 1000
   #Persistent storage selections and pathing
   storage:
-    customVolume: false  #set to true if not using a PVC (must provide volume below)
+    customVolume: true  #set to true if not using a PVC (must provide volume below)
     pvcName: mediaserver-pvc
     size: 5Gi
     pvcStorageClass: ""
@@ -25,7 +25,10 @@ general:
       transmission: transmission
       sabnzbd: sabnzbd
       config: config
-    volumes: {}
+    volumes: 
+      nfs:
+        server: 192.168.50.10
+        path: /volume1/disks
     #  hostPath:
     #    path: /mnt/share
   ingress:
@@ -64,7 +67,7 @@ sonarr:
     #selector: {}
 
 radarr:
-  enabled: true
+  enabled: false
   container:
     image: docker.io/linuxserver/radarr
     nodeSelector: {}
@@ -93,7 +96,7 @@ radarr:
     #selector: {}
 
 jackett:
-  enabled: true
+  enabled: false
   container:
     image: docker.io/linuxserver/jackett
     nodeSelector: {}
@@ -122,7 +125,7 @@ jackett:
   #  selector: {}
 
 transmission:
-  enabled: true
+  enabled: false
   container:
     image: docker.io/linuxserver/transmission
     nodeSelector: {}
@@ -166,7 +169,7 @@ transmission:
   #  selector: {}
 
 sabnzbd:
-  enabled: true
+  enabled: false
   container:
     image: docker.io/linuxserver/sabnzbd
     nodeSelector: {}
@@ -204,7 +207,7 @@ sabnzbd:
   #  selector: {}
 
 prowlarr:
-  enabled: true
+  enabled: false
   container: 
     image: docker.io/linuxserver/prowlarr
     tag: develop
@@ -233,7 +236,7 @@ prowlarr:
   #  selector: {}
 
 plex:
-  enabled: true
+  enabled: false
   claim: "CHANGEME"
   replicaCount: 1
   container:
